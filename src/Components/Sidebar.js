@@ -11,9 +11,9 @@ import {FiSettings} from 'react-icons/fi'
 import userPic from '../assets/user-pic.png'
 import { Link } from 'react-router-dom'
 
-const Sidebar = ({ toggleHeart, setToggleHeart }) => {
+const Sidebar = ({ sideBar, toggleHeart, setToggleHeart }) => {
   return (
-    <nav className='fixed top-0 bottom-0 left-0 bg-white w-2/3 p-4 shadow-lg'>
+    <nav className={!sideBar ? 'fixed top-0 bottom-0 left-0 bg-white w-2/3 p-4 shadow-lg z-20 slide-out' : 'fixed top-0 bottom-0 bg-white w-2/3 p-4 shadow-lg z-20 slide-in'}>
         <div className='w-full flex flex-col justify-between gap-5 h-full'>
             <div className='flex flex-col gap-2'>
                 {/* LOGO */}
@@ -74,7 +74,7 @@ const Sidebar = ({ toggleHeart, setToggleHeart }) => {
                         animate={{scale:1}}
                         initial={{scale: 0}}
                     >
-                        { toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='red'/>}
+                        { toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='#FF5A5C'/>}
                     </motion.button>
                     <button className='text-xl'>
                         <BiNotification />

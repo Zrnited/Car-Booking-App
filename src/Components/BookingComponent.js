@@ -3,7 +3,7 @@ import { GoLocation } from 'react-icons/go';
 import { BsCalendarEvent } from 'react-icons/bs';
 import { FiClock } from 'react-icons/fi';
 
-const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
+const BookingComponent = ({ bookingForm }) => {
 
   return (
     <div className='w-full flex flex-col gap-5 md:flex-row md:justify-evenly lg:gap-6'>
@@ -16,7 +16,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                     <p className='font-extrabold'>Pick-up</p>
                 </div>
                 <div className='bg-gray-200 pl-4 rounded-lg py-2'>
-                <p className='font-semibold'>London (LHR - Heathrow)</p>
+                <p className='font-semibold'>{bookingForm.pickUp}</p>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                         <p className='font-bold lg:text-sm xl:text-base'>Pick-up Date</p>
                     </div>
                     <div>
-                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 xl:pl-4'>18 December</p>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 xl:pl-4'>{bookingForm.pickDate}</p>
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                         <p className='font-bold lg:text-sm xl:text-base'>Drop-off Date</p>
                     </div>
                     <div>
-                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 xl:pl-4'>19 December</p>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 xl:pl-4'>{bookingForm.dropDate}</p>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                     <p className='font-extrabold'>Drop off</p>
                 </div>
                 <div className='bg-gray-200 pl-4 rounded-lg py-2'>
-                    <p className='font-semibold'>London (LGW - Gatwick)</p>
+                    <p className='font-semibold'>{bookingForm.dropOff}</p>
                 </div>
             </div>
 
@@ -65,8 +65,8 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                         <p className='font-bold lg:text-sm xl:text-base'>Pick-up Time</p>
                     </div>
                     <div>
-                        {/* <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>10:00</p> */}
-                        <form className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 lg:pr-2 xl:pl-4'>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{bookingForm.pickTime}</p>
+                        {/* <form className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 lg:pr-2 xl:pl-4'>
                             <select 
                                 className='bg-gray-200 cursor-pointer md:text-sm xl:text-base'
                                 onChange={(e)=>{
@@ -86,7 +86,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                                 <option value={'4pm'} className='bg-white'>04:00p.m</option>
                                 <option value={'5pm'} className='bg-white'>05:00p.m</option>
                             </select>
-                        </form>
+                        </form> */}
                     </div>
                 </div>
 
@@ -96,8 +96,8 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                         <p className='font-bold lg:text-sm xl:text-base'>Drop-off Time</p>
                     </div>
                     <div>
-                        {/* <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{timeForm ? 'Next one hour' : 'Select pick-up time'}</p> */}
-                        <form className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-1 lg:pr-2 xl:pl-4'>
+                    <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{bookingForm.dropTime}</p>
+                        {/* <form className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-1 lg:pr-2 xl:pl-4'>
                             <select 
                                 className='bg-gray-200 cursor-pointer md:text-sm xl:text-base'
                                 onChange={(e)=>{
@@ -117,7 +117,7 @@ const BookingComponent = ({ pickTime, dropTime, setDropTime, setPickTime }) => {
                                 <option value={'4pm'} className='bg-white'>04:00p.m</option>
                                 <option value={'5pm'} className='bg-white'>05:00p.m</option>
                             </select>
-                        </form>
+                        </form> */}
                     </div>
                 </div>
             </div>

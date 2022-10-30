@@ -12,11 +12,11 @@ module.exports = {
       },
 
       textColor: {
-        customblue: '#0A20E6'
+        customblue: '#034671'
       },
 
       colors: {
-        customblue: '#0A20E6'
+        customblue: '#034671'
       },
 
       height: {
@@ -37,11 +37,14 @@ module.exports = {
       },
 
       maxWidth: {
-        840: '840px'
+        840: '840px',
+        500: '500px',
+        712: '712px'
       },
       
       backgroundColor: {
-        customblue: '#0A20E6'
+        customblue: '#034671',
+        customred: '#FF5A5C'
       },
 
       borderWidth: {
@@ -50,7 +53,7 @@ module.exports = {
 
       borderColor: {
         displayblue: '#0A20E6' 
-      }
+      },
     },
   },
   plugins: [],

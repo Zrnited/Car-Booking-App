@@ -118,7 +118,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                     onClick={()=>setToggleHeart(!toggleHeart)}
                     whileTap={{scale: 1.3}}
                 >
-                    { toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='red'/>}
+                    { toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='#FF5A5C'/>}
                 </motion.button>
                 <button className='text-lg'>
                     <BiNotification />
@@ -155,7 +155,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                         <motion.i
                             whileTap={{scale: 1.3}}
                         >
-                            {toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='red' />}
+                            {toggleHeart ? <AiOutlineHeart /> : <AiFillHeart color='#FF5A5C' />}
                         </motion.i>
                         <p>{toggleHeart ? 'Like this app!' : 'Thank you!'}</p>
                     </div>
