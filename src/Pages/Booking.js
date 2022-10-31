@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../Components/Navbar';
 import reviews from '../assets/reviews.png';
 import starRating from '../assets/star-rating.png';
@@ -10,6 +11,7 @@ import {AiFillGithub} from 'react-icons/ai'
 import {AiFillLinkedin} from 'react-icons/ai'
 import CarDetails from '../Components/CarDetails';
 import Header from '../Components/Header';
+import Spinner from '../Components/Spinner';
 
 const Booking = () => {
 
@@ -22,6 +24,7 @@ const Booking = () => {
     dropTime: ''
   })
   // console.log(bookingForm);
+  const [loading, setLoading] = useState(false);
   const [toggleHeart, setToggleHeart] = React.useState(true);
   const [dropDown, setDropDown] = React.useState(false);
   const [width, setWidth] = React.useState(null)
@@ -64,7 +67,7 @@ const Booking = () => {
     const letterNumber = /[a-zA-Z]/;
 
     if(bookingForm.pickUp === '' || bookingForm.dropOff === '' || bookingForm.pickDate === '' || bookingForm.dropDate === '' || bookingForm.pickTime === '' || bookingForm.dropTime === '' ){
-      return alert('rejected')
+      return toast.error('Field(s) empty');
     } else {
       let pickUpStringArray = []
       let dropOffStringArray = []
@@ -75,20 +78,30 @@ const Booking = () => {
         flag = 1;
         if(flag === 1 && bookingForm.pickUp !== '' && bookingForm.dropOff !== ''){
           if(bookingForm.pickUp.match(letterNumber) && bookingForm.dropOff.match(letterNumber)){
-            setBooked(true);
-            return console.log('Accepted');
+            toast.success('Information received!');
+            setLoading(true);
+            setInterval(()=>{
+              setBooked(true);
+              setLoading(false);
+            }, 2000)
+            return
           } else {
-            return alert('U wan collect?')
+            return toast.error('Invalid type of location');
           }
         } else {
-          return alert('No white spaces');
+          return toast.error('Invalid type of details');
         }
       } else {
         if(bookingForm.pickUp.match(letterNumber) && bookingForm.dropOff.match(letterNumber)){
-          setBooked(true);
-          return console.log('Accepted');
+          toast.success('Information received!');
+          setLoading(true);
+          setInterval(()=>{
+            setBooked(true);
+            setLoading(false);
+          }, 2000)
+          return
         } else {
-          return alert('Letters alone');
+          return toast.error('Input valid lcoations');
         }
       }
     }
@@ -103,7 +116,8 @@ const Booking = () => {
 
 
   return (
-    <>
+    <div>
+      <ToastContainer />
       <Navbar setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
 
       {<Sidebar sideBar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart}/>}
@@ -190,7 +204,10 @@ const Booking = () => {
           </button>}
         </div>
 
-        {booked && <article className='p-5'>
+        {loading && <article className='p-5'>
+          <Spinner message={'loading...'} />
+        </article>}
+        {booked && <article className='p-7'>
           <CarDetails />
         </article>}
 
@@ -208,7 +225,7 @@ const Booking = () => {
               <AiFillTwitterSquare />
             </a>
             <a
-              href='https://www.linkedin.com/mayowa-kolawole-8aa08a1b0/'
+              href='https://www.linkedin.com/in/mayowa-kolawole-8aa08a1b0/'
               target={'_blank'}
               rel="noreferrer"
             >
@@ -223,7 +240,7 @@ const Booking = () => {
             </a>
           </div>
         </footer>
-    </>
+    </div>
   )
 }
 
