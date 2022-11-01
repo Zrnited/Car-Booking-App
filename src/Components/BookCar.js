@@ -3,7 +3,7 @@ import { GoLocation } from 'react-icons/go';
 import { BsCalendarEvent } from 'react-icons/bs';
 import { FiClock } from 'react-icons/fi';
 
-const BookCar = ({ bookingForm, handleChange }) => {
+const BookCar = ({ bookingForm, handleChange, booked }) => {
 
     // const [date, setDate] = React.useState(null);
     // console.log(date);
@@ -18,7 +18,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                     </button>
                     <p className='font-extrabold'>Pick-up</p>
                 </div>
-                <div className='rounded-lg py-1 h-50'>
+                {!booked ? <div className='rounded-lg py-1 h-50'>
                     <form className='h-full w-full bg-green-200 '>
                         <input 
                             type={'text'}
@@ -29,7 +29,12 @@ const BookCar = ({ bookingForm, handleChange }) => {
                             name = 'pickUp'
                         />
                     </form>
+                </div> 
+                : 
+                <div className='bg-gray-200 pl-4 rounded-lg py-2'>
+                    <p className='font-semibold'>{bookingForm.pickUp}</p>
                 </div>
+                }
             </div>
 
             <div className='flex flex-row gap-3 w-full justify-evenly'>
@@ -38,7 +43,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                         <BsCalendarEvent color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Pick-up Date</p>
                     </div>
-                    <div className='bg-gray-200 px-4 py-1 rounded-lg'>
+                    {!booked ? <div className='bg-gray-200 px-4 py-1 rounded-lg'>
                         <form className='bg-gray-200 w-full flex flex-col justify-center py-1 text-sm sm:text-base'>
                             <input 
                                 type={'date'}
@@ -48,7 +53,11 @@ const BookCar = ({ bookingForm, handleChange }) => {
                                 name = 'pickDate'
                             />
                         </form>
+                    </div> : 
+                    <div>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold lg:pl-2 xl:pl-4'>{bookingForm.pickDate}</p>
                     </div>
+                    }
                 </div>
 
                 <div className='flex flex-col w-full gap-2'>
@@ -56,7 +65,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                     <BsCalendarEvent color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Drop-off Date</p>
                     </div>
-                    <div className='bg-gray-200 px-4 py-1 rounded-lg'>
+                    {!booked ? <div className='bg-gray-200 px-4 py-1 rounded-lg'>
                         <form className='bg-gray-200 w-full flex flex-col justify-center py-1 text-sm sm:text-base'>
                             <input 
                                 type={'date'}
@@ -66,7 +75,11 @@ const BookCar = ({ bookingForm, handleChange }) => {
                                 name = 'dropDate'
                             />
                         </form>
+                    </div> :
+                    <div>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full   font-semibold lg:pl-2 xl:pl-4'>{bookingForm.dropDate}</p>
                     </div>
+                    }
                 </div>
             </div>
         </div>
@@ -81,7 +94,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                     </button>
                     <p className='font-extrabold'>Drop off</p>
                 </div>
-                <div className='rounded-lg py-1 h-50'>
+                {!booked ? <div className='rounded-lg py-1 h-50'>
                     <form className='h-full w-full bg-green-200'>
                         <input 
                             type={'text'}
@@ -92,7 +105,11 @@ const BookCar = ({ bookingForm, handleChange }) => {
                             name = 'dropOff'
                         />
                     </form>
+                </div> : 
+                <div className='bg-gray-200 pl-4 rounded-lg py-2'>
+                    <p className='font-semibold'>{bookingForm.dropOff}</p>
                 </div>
+                }
             </div>
 
             <div className='flex flex-row gap-3 w-full justify-evenly'>
@@ -101,8 +118,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                         <FiClock color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Pick-up Time</p>
                     </div>
-                    <div>
-                        {/* <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>10:00</p> */}
+                    {!booked ? <div>
                         <form className='bg-gray-200 rounded-lg flex justify-center py-2.5 w-full text-sm sm:text-base font-semibold lg:pl-2 lg:pr-2 xl:pl-4'>
                             <select 
                                 className='bg-gray-200 cursor-pointer focus:outline-none md:text-sm xl:text-base'
@@ -124,7 +140,11 @@ const BookCar = ({ bookingForm, handleChange }) => {
                                 <option value={'5:00p.m'} className='bg-white'>05:00p.m</option>
                             </select>
                         </form>
+                    </div> : 
+                    <div>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{bookingForm.pickTime}</p>
                     </div>
+                    }
                 </div>
 
                 <div className='flex flex-col w-full gap-2'>
@@ -132,8 +152,7 @@ const BookCar = ({ bookingForm, handleChange }) => {
                     <FiClock color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Drop-off Time</p>
                     </div>
-                    <div>
-                        {/* <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{timeForm ? 'Next one hour' : 'Select pick-up time'}</p> */}
+                    {!booked ? <div>
                         <form className='bg-gray-200 rounded-lg flex justify-center py-2.5 w-full font-semibold text-sm sm:text-base lg:pl-1 lg:pr-2 xl:pl-4 '>
                             <select 
                                 className='bg-gray-200 cursor-pointer md:text-sm xl:text-base focus:outline-none'
@@ -154,7 +173,11 @@ const BookCar = ({ bookingForm, handleChange }) => {
                                 <option value={'5:00p.m'} className='bg-white'>05:00p.m</option>
                             </select>
                         </form>
+                    </div> : 
+                    <div>
+                        <p className='bg-gray-200 pl-4 rounded-lg py-2 w-full font-semibold'>{bookingForm.dropTime}</p>
                     </div>
+                    }
                 </div>
             </div>
         </div>

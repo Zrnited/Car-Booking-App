@@ -43,7 +43,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
       }, [])
 
   return (
-    <nav className='p-3 bg-white shadow-lg flex flex-row w-full justify-between items-center fixed top-0 left-0 right-0 sm:shadow-none lg:justify-evenly'>
+    <nav className='p-3 bg-white shadow-lg flex flex-row w-full justify-between items-center fixed top-0 left-0 right-0 z-20 sm:shadow-none lg:justify-evenly'>
         <div>
             <h1 className='uppercase tracking-widest font-extrabold text-customblue weight-500 text-lg font-poppins lg:text-xl xl:text-2xl'>optimum</h1>    
         </div>

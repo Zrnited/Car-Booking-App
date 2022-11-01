@@ -3,6 +3,8 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Booking from './Pages/Booking';
 import 'react-toastify/dist/ReactToastify.css';
+import Book from './Pages/Book';
+import ProtectedRoutes from './Components/ProtectedRoutes';
 
 function App() {
   return (
@@ -10,6 +12,9 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Booking />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/book' element={<Book />} />
+          </Route>
         </Routes>
       </Router>
     </div>

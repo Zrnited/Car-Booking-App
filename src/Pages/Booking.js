@@ -3,17 +3,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import Navbar from '../Components/Navbar';
 import reviews from '../assets/reviews.png';
 import starRating from '../assets/star-rating.png';
-import BookingComponent from '../Components/BookingComponent';
 import Sidebar from '../Components/Sidebar';
 import BookCar from '../Components/BookCar';
 import {AiFillTwitterSquare} from 'react-icons/ai'
 import {AiFillGithub} from 'react-icons/ai'
 import {AiFillLinkedin} from 'react-icons/ai'
-import CarDetails from '../Components/CarDetails';
 import Header from '../Components/Header';
-import Spinner from '../Components/Spinner';
+import { useNavigate } from 'react-router-dom';
 
 const Booking = () => {
+
+  const navigate = useNavigate();
 
   const [bookingForm, setBookingForm] = useState({
     pickUp: '',
@@ -24,15 +24,12 @@ const Booking = () => {
     dropTime: ''
   })
   // console.log(bookingForm);
-  const [loading, setLoading] = useState(false);
+
   const [toggleHeart, setToggleHeart] = React.useState(true);
   const [dropDown, setDropDown] = React.useState(false);
   const [width, setWidth] = React.useState(null)
   const [sidebar, setSidebar] = React.useState(false);
-  const [booked, setBooked] = useState(false)
-  // const parent = React.useRef(null);
-  // console.log(pickTime);
-  // console.log(dropTime);
+
 
   window.addEventListener('resize', ()=>{
     setWidth(window.innerWidth);
@@ -79,12 +76,10 @@ const Booking = () => {
         if(flag === 1 && bookingForm.pickUp !== '' && bookingForm.dropOff !== ''){
           if(bookingForm.pickUp.match(letterNumber) && bookingForm.dropOff.match(letterNumber)){
             toast.success('Information received!');
-            setLoading(true);
+            window.localStorage.setItem('book', JSON.stringify(bookingForm))
             setInterval(()=>{
-              setBooked(true);
-              setLoading(false);
-            }, 2000)
-            return
+              navigate('/book');
+            }, 1500)
           } else {
             return toast.error('Invalid type of location');
           }
@@ -94,12 +89,11 @@ const Booking = () => {
       } else {
         if(bookingForm.pickUp.match(letterNumber) && bookingForm.dropOff.match(letterNumber)){
           toast.success('Information received!');
-          setLoading(true);
+          // setLoading(true);
+          window.localStorage.setItem('book', JSON.stringify(bookingForm))
           setInterval(()=>{
-            setBooked(true);
-            setLoading(false);
-          }, 2000)
-          return
+            navigate('/book');
+          }, 1500)
         } else {
           return toast.error('Input valid lcoations');
         }
@@ -114,6 +108,10 @@ const Booking = () => {
     document.body.classList.remove('active');
   }
 
+  React.useEffect(()=>{
+    setWidth(window.innerWidth);
+  }, [])
+
 
   return (
     <div>
@@ -124,22 +122,17 @@ const Booking = () => {
 
       <Header/>
       
-      {!booked && <div className='bg-customred py-2 text-white md:mt-6'>
+      <div className='bg-customred py-2 text-white md:mt-6'>
         <h1 className='text-center'>
-              Please fill the information below to get started.
+            Fill the information below to get started
         </h1>
-      </div>}
-      {booked && <div className='bg-green-600 py-2 text-white md:mt-6'>
-        <h1 className='text-center'>
-              Select an available car and enjoy your ride!
-        </h1>
-      </div>}
+      </div>
 
 
-      <section id='parent' ref={parent} className='mt-12 sm:mt-8 px-6 md:mt-3 md:gap-4 md:flex md:flex-col lg:flex-row lg:justify-center lg:items-center lg:gap-10 lg:mt-5'>
+      <section id='parent' ref={parent} className='mt-8 sm:mt-8 px-6 md:mt-3 md:gap-4 md:flex md:flex-col lg:flex-row lg:justify-center lg:items-center lg:gap-10 lg:mt-5'>
 
         <div className='flex flex-col gap-2 md:hidden'>
-          <h1 className='font-poppins text-center text-lg font-extrabold tracking-wide md:text-2xl lg:text-left lg:text-lg xl:text-2xl'> Book car in easy steps </h1>
+          <h1 className='font-poppins text-center text-xl font-extrabold tracking-wide md:text-2xl lg:text-left lg:text-lg xl:text-2xl'> Book car in easy steps </h1>
           <p className='text-sm text-center text-gray-500 md:text-lg lg:text-left lg:text-sm xl:text-base'> Renting a car brings  you freedom, we’ll help you find the best car for you at a great price. </p>
           
           <div className='flex flex-row gap-5 items-center justify-center lg:justify-start'>
@@ -176,42 +169,31 @@ const Booking = () => {
               <p className='text-xs text-gray-400'> Trusted by 10 million customers </p>
             </div>
           </div>
+
+          <div className='bg-customred mt-7 py-2 text-white text-sm underline md:hidden'>
+            <h1 className='text-center'>
+                Fill the information below to get started
+            </h1>
+        </div>
         </div>
 
         {/* BOOK A CAR */}
-        {!booked && <div className='md:w-full lg:flex py-5 lg:justify-center'>
+        <div className='md:w-full lg:flex py-5 lg:justify-center'>
             <BookCar bookingForm={bookingForm} setBookingForm={setBookingForm} handleChange={handleChange} />
-        </div>}
-
-        {booked && <div className='md:w-full lg:flex py-5 lg:justify-center'>
-          <BookingComponent bookingForm={bookingForm} />
-        </div>}
+        </div>
       </section>
 
 
       <div className='flex justify-center w-full bg-white md:shadow-lg md:mt-3 md:pb-3 md:shadow-none'>
-          {!booked && <button
+          <button
             className='bg-customblue text-white py-2 px-6 rounded-sm w-1/2 text-base max-w-500 opacity-75 hover:opacity-100 transition ease-in-out delay-100 md:text-lg'
             onClick={handleSubmit}
           >
-            Submit
-          </button>}
-          {booked && <button
-            disabled
-            className='bg-customblue text-white py-2 px-6 rounded-sm w-1/2 text-base max-w-500 transition ease-in-out delay-100 md:text-lg'
-          >
-            Submitted!
-          </button>}
+            Get started
+          </button>
         </div>
 
-        {loading && <article className='p-5'>
-          <Spinner message={'loading...'} />
-        </article>}
-        {booked && <article className='p-7'>
-          <CarDetails />
-        </article>}
-
-        <footer className='h-8 text-white py-6 mt-3 bg-customblue flex flex-row gap-3 items-center justify-center'>
+        <footer className='h-8 text-white py-6 mt-3 bg-customblue flex flex-row gap-3 items-center justify-center w-full'>
           <div className='flex flex-row gap-2 items-center'>
             <h1 className='font-poppins m-0 text-base'>OPTIMUM -</h1>
             <p className='text-sm'>All rights reserved © 2022.</p>
