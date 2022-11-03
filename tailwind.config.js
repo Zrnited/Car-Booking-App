@@ -27,7 +27,8 @@ module.exports = {
         36: '36px',
         50: '50px',
         2: '2px',
-        190: '190px'
+        190: '190px',
+        100: '100%'
       },
 
       width: {
@@ -51,7 +52,8 @@ module.exports = {
       
       backgroundColor: {
         customblue: '#034671',
-        customred: '#FF5A5C'
+        customred: '#FF5A5C',
+        overlay: 'rgba(49, 49, 49, 0.8)'
       },
 
       borderWidth: {

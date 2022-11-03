@@ -1,53 +1,14 @@
 import React from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
-import { BiCollapse } from 'react-icons/bi'
+import { BiMinus } from 'react-icons/bi'
+import { BiPlus } from 'react-icons/bi'
 import { BsFillGearFill, BsFillPersonFill } from 'react-icons/bs';
-import { cardata } from './CarData';
+import { motion } from 'framer-motion';
 
-const CarDetails = ({ filter, handleFilter, data }) => {
-    // const [data, setData] = React.useState(null);
-
-    // const [filter, setFilter] = useState({
-    //     coupe: false,
-    //     hatchback: false,
-    //     sedan: false,
-    //     MPV: false,
-    //     SUV: false,
-    //     capacityTwo: false,
-    //     capacityFour: false,
-    //     seventy: false,
-    //     forty: false,
-    //     zero: false
-    //   })
-
-    // const coupe = cardata.filter((items)=>{
-    //     return items.type === 'Coupe'
-    //   })
-    //   const hatchback = cardata.filter((items)=>{
-    //     return items.type === 'Hatchback'
-    //   })  
-    //   const capacityTwo = cardata.filter((items)=>{
-    //     return items.capacity === 2
-    //   })  
-    //   const capacityFour = cardata.filter((items)=>{
-    //     return items.capacity === 4
-    //   })  
-    //   const Recommendation = cardata.filter((items)=>{
-    //     return items.customerRecommendation === true
-    //   })  
-    //   const NoRecommendation = cardata.filter((items)=>{
-    //     return items.customerRecommendation === false
-    //   })  
-
-    // if(filter?.coupe === true ){
-    //     setData(coupe)
-    // } else {
-    //     setData(cardata)
-    // }
-
+const CarDetails = ({ filter, handleFilter, data, collapse, setCollapse, handleTarget }) => {
 
   return (
-    <div className='flex flex-col bg-white py-2 gap-7 items-center sm:px-4 md:items-start md:flex-row md:px-2 md:gap-5 lg:justify-center xl:gap-2'>
+    <div className='flex flex-col py-2 gap-7 sm:px-4 sm:items-center md:items-start md:justify-center md:flex-row md:px-2 md:gap-5 lg:justify-center xl:gap-2'>
         {/* FILTER DIV */}
         <div className='flex flex-col w-full p-4 gap-2 shadow-lg md:w-270'>
             {/* FILTER BY && HR */}
@@ -60,10 +21,21 @@ const CarDetails = ({ filter, handleFilter, data }) => {
             <div className='w-full flex flex-col gap-2 md:pl-3'>
                 <div className='flex flex-row justify-between items-center w-full'>
                     <h2 className='font-bold font-sm'>Car Type</h2>
-                    <i> <BiCollapse /> </i>
+                    <i 
+                        className='cursor-pointer' 
+                        onClick={()=>{
+                            setCollapse((prevState)=>{
+                                return {
+                                    ...prevState,
+                                    carType: !prevState.carType   
+                                }
+                            })
+                        }}> 
+                        {collapse.carType ? <BiMinus /> : <BiPlus />} 
+                    </i>
                 </div>
                 
-                <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
+                {collapse.carType && <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
                     <div className='flex flex-row items-center gap-2'>
                         <input 
                             type={'checkbox'}
@@ -103,7 +75,7 @@ const CarDetails = ({ filter, handleFilter, data }) => {
                         />
                         <p className='text-sm'>SUV (20) </p>
                     </div>
-                </div>
+                </div>}
             </div>
 
 
@@ -111,10 +83,21 @@ const CarDetails = ({ filter, handleFilter, data }) => {
             <div className='w-full flex flex-col gap-2 md:pl-3'>
                 <div className='flex flex-row justify-between items-center w-full'>
                     <h2 className='font-bold font-sm'>Capacity</h2>
-                    <i> <BiCollapse /> </i>
+                    <i 
+                        className='cursor-pointer' 
+                        onClick={()=>{
+                            setCollapse((prevState)=>{
+                                return {
+                                    ...prevState,
+                                    capacity: !prevState.capacity   
+                                }
+                            })
+                        }}> 
+                        {collapse.capacity ? <BiMinus /> : <BiPlus />} 
+                    </i>
                 </div>
                 
-                <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
+                {collapse.capacity && <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
                     <div className='flex flex-row items-center gap-2'>
                         <input 
                             type={'checkbox'}
@@ -135,7 +118,7 @@ const CarDetails = ({ filter, handleFilter, data }) => {
                         />
                         <p className='text-sm'>6 or more (4) </p>
                     </div>
-                </div>
+                </div>}
             </div>
 
 
@@ -143,10 +126,21 @@ const CarDetails = ({ filter, handleFilter, data }) => {
             <div className='w-full flex flex-col gap-2 md:pl-3'>
                 <div className='flex flex-row justify-between items-center w-full'>
                     <h2 className='font-bold font-sm'>Customer Recommendation</h2>
-                    <i> <BiCollapse /> </i>
+                    <i 
+                        className='cursor-pointer' 
+                        onClick={()=>{
+                            setCollapse((prevState)=>{
+                                return {
+                                    ...prevState,
+                                    customerRec: !prevState.customerRec   
+                                }
+                            })
+                        }}> 
+                        {collapse.customerRec ? <BiMinus /> : <BiPlus />} 
+                    </i>
                 </div>
                 
-                <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
+                {collapse.customerRec && <div className='flex flex-row flex-wrap gap-2 md:flex-col'>
                     <div className='flex flex-row items-center gap-2'>
                         <input 
                             type={'checkbox'}
@@ -177,15 +171,22 @@ const CarDetails = ({ filter, handleFilter, data }) => {
                         />
                         <p className='text-sm'>0 - 39% (28)</p>
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
 
         {/* CAR DISPLAY DIV */}
-        <div className='flex flex-col justify-center items-center gap-5 sm:w-400 md:w-full md:justify-center md:flex-row md:flex-wrap md:gap-2 lg:gap-4'>
+        <div className='flex flex-col justify-center items-center gap-5 sm:w-400 sm:justify-center md:w-full md:justify-evenly md:flex-row md:flex-wrap md:gap-2 lg:gap-4'>
             {data?.map((caritem, index)=>{
                 return (
-                    <div key={index} className='bg-white shadow-lg p-5 rounded-lg flex flex-col justify-center w-80 sm:w-full md:h-190 md:w-250'>
+                    <motion.div 
+                        key={index} className='bg-white shadow-lg p-5 rounded-lg flex flex-col justify-center cursor-pointer w-80 sm:w-full md:h-190 md:w-250'
+                        whileHover={{scale: 1.2}}
+                        initial={{scale: 0}}
+                        animate={{scale: 1}}
+                        transition={{type: 'tween', duration: 0.2}}
+                        onClick={()=>handleTarget(caritem)}
+                    >
                         <div className='flex flex-row items-center justify-between'>
                             <h1 className='font-extrabold font-poppins md:text-sm'>{caritem.name}</h1>
                             <i 
@@ -221,7 +222,7 @@ const CarDetails = ({ filter, handleFilter, data }) => {
                                 <h1 className='font-poppins font-extrabold'>${caritem.amount}<span className='font-nunito font-normal text-gray-400'>/d</span></h1>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 )
             })}
     

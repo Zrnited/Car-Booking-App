@@ -4,6 +4,9 @@ import carthree from '../assets/carthree.png'
 import carfour from '../assets/carfour.png'
 import carfive from '../assets/carfive.png'
 import carsix from '../assets/carsixnew.png'
+import carseven from '../assets/carseven.png'
+import careight from '../assets/careight.png'
+import carnine from '../assets/carnine.png'
 
 export const cardata = [
     {
@@ -58,6 +61,33 @@ export const cardata = [
         capacity: 4,
         engine: 'matic',
         amount: 360,
+        customerRecommendation: true
+    },
+    {
+        name: 'Lambo 250 Race 5',
+        type: 'Hatchback',
+        image: carseven,
+        capacity: 4,
+        engine: 'matic',
+        amount: 450,
+        customerRecommendation: true
+    },
+    {
+        name: '2022 Horse Race Pro',
+        type: 'Coupe',
+        image: careight,
+        capacity: 4,
+        engine: 'matic',
+        amount: 600,
+        customerRecommendation: true
+    },
+    {
+        name: 'Silver Light PDFR',
+        type: 'Hatchback',
+        image: carnine,
+        capacity: 4,
+        engine: 'matic',
+        amount: 340,
         customerRecommendation: true
     },
 ]

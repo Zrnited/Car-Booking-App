@@ -13,11 +13,19 @@ import Aos from 'aos'
 import 'aos/dist/aos.css';
 import { motion } from 'framer-motion';
 
+function getUser(){
+    const user = JSON.parse(window.localStorage.getItem('book'));
+    return user
+}
+
 const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, setSidebar, sidebar }) => {
+
+    const userInfo = getUser();
 
     const links = document.getElementsByClassName('link');
     // console.log(links);
     const [hoverLine, setHoverLine] = React.useState(null);
+
 
     const underScore =(e)=>{
         // console.log(e.target);
@@ -40,10 +48,25 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
 
     React.useEffect(()=>{
         Aos.init({ duration: 1000 });
-      }, [])
+    }, [])
+
+    const cancelSession =()=>{
+        if(userInfo){
+            if(window.confirm('Do you wish to end your session?')){
+                setDropDown(false);
+                window.localStorage.clear();
+                window.location = '/';
+            } else {
+                return
+            }
+        } else {
+            alert('Session not yet registered')
+        }
+    }
+
 
   return (
-    <nav className='p-3 bg-white shadow-lg flex flex-row w-full justify-between items-center fixed top-0 left-0 right-0 z-20 sm:shadow-none lg:justify-evenly'>
+    <nav className='p-3 bg-white shadow-lg flex flex-row w-full justify-between items-center fixed top-0 left-0 right-0 z-10 sm:shadow-none lg:justify-evenly'>
         <div>
             <h1 className='uppercase tracking-widest font-extrabold text-customblue weight-500 text-lg font-poppins lg:text-xl xl:text-2xl'>optimum</h1>    
         </div>
@@ -171,11 +194,11 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
             
                 <div className='flex flex-row gap-2 items-center hover:text-customblue cursor-pointer transition ease-in-out delay-100'>
                     <AiOutlineLogout />
-                    <p>Logout</p>
+                    <p onClick={cancelSession}>Cancel Session</p>
                 </div>
             </div>}
         </div>
-        <div className='hidden sm:block sm:absolute bottom-0 bg-gray-200 h-2 w-95 sm:flex sm:flex-row sm:items-center justify-center gap-9'></div>
+        <div className='hidden sm:block sm:absolute bottom-0 bg-gray-200 h-2 w-95 sm:flex-row sm:items-center justify-center gap-9'></div>
     </nav>
   )
 }

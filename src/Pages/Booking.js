@@ -120,7 +120,7 @@ const Booking = () => {
 
       {<Sidebar sideBar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart}/>}
 
-      <Header/>
+      <Header dropDown={dropDown} setDropDown={setDropDown}/>
       
       <div className='bg-customred py-2 text-white md:mt-6'>
         <h1 className='text-center'>
@@ -129,7 +129,7 @@ const Booking = () => {
       </div>
 
 
-      <section id='parent' ref={parent} className='mt-8 sm:mt-8 px-6 md:mt-3 md:gap-4 md:flex md:flex-col lg:flex-row lg:justify-center lg:items-center lg:gap-10 lg:mt-5'>
+      <section ref={parent} className='mt-8 sm:mt-8 px-6 md:mt-3 md:gap-4 md:flex md:flex-col lg:flex-row lg:justify-center lg:items-center lg:gap-10 lg:mt-5'>
 
         <div className='flex flex-col gap-2 md:hidden'>
           <h1 className='font-poppins text-center text-xl font-extrabold tracking-wide md:text-2xl lg:text-left lg:text-lg xl:text-2xl'> Book car in easy steps </h1>

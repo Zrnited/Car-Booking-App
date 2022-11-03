@@ -7,7 +7,7 @@ import {AiFillTwitterSquare} from 'react-icons/ai'
 import {AiFillGithub} from 'react-icons/ai'
 import {AiFillLinkedin} from 'react-icons/ai'
 import Sidebar from '../Components/Sidebar';
-import Spinner from '../Components/Spinner';
+import SelectedModal from '../Components/SelectedModal';
 
 
 function getUser(){
@@ -18,7 +18,7 @@ function getUser(){
 const Book = () => {
 
     const userInfo = getUser();
-    console.log(userInfo);
+    // console.log(userInfo);
     const [data, setData] = React.useState(cardata);
     const [filter, setFilter] = useState({
         coupe: false,
@@ -36,7 +36,14 @@ const Book = () => {
     const [dropDown, setDropDown] = React.useState(false);
     const [width, setWidth] = React.useState(null)
     const [sidebar, setSidebar] = React.useState(false);
-    // const [loading, setLoading] = React.useState(true);
+    const [collapse, setCollapse] = React.useState({
+        carType: true,
+        capacity: true,
+        customerRec: true
+    });
+    const [current, setCurrent] = React.useState([]);
+    // console.log(current);
+    const [modal, setModal] = React.useState(false);
 
 
     // if(loading){
@@ -73,10 +80,20 @@ const Book = () => {
 
     window.addEventListener('resize', ()=>{
         setWidth(window.innerWidth);
-        if(width > 640){
+        if(width > 640 ){
           setSidebar(false);
         }
+
+        if(dropDown){
+            setDropDown(false);
+        }
       })
+
+      //getting a specific car etails
+      const handleTarget =(carItem)=>{
+       setCurrent(carItem);
+       setModal(true);
+      }
 
     React.useEffect(()=>{
         if(filter.coupe){
@@ -99,7 +116,7 @@ const Book = () => {
         }
     }, [filter])
 
-    if(sidebar){
+    if(sidebar || modal){
         document.body.classList.add('active')
     } else {
         document.body.classList.remove('active');
@@ -128,8 +145,10 @@ const Book = () => {
         </div>
 
         <article className='p-4 md:px-1 lg:px-6'>
-          <CarDetails data={data} handleFilter={handleFilter} filter={filter} />
+          <CarDetails data={data} handleFilter={handleFilter} filter={filter} collapse={collapse} setCollapse={setCollapse} handleTarget={handleTarget} />
         </article>
+
+        {modal && <SelectedModal setModal={setModal} current={current}/>}
 
         <footer className='h-8 text-white py-6 mt-3 bg-customblue flex flex-row gap-3 items-center justify-center w-full md:justify-evenly'>
           <div className='flex flex-row gap-2 items-center'>
