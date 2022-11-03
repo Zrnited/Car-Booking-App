@@ -4,14 +4,38 @@ import {AiOutlineHeart} from 'react-icons/ai'
 import {AiFillHeart} from 'react-icons/ai'
 import {BiBook} from 'react-icons/bi'
 import {BiAlarmExclamation} from 'react-icons/bi'
-import {BiComment} from 'react-icons/bi'
-import {AiTwotoneCustomerService} from 'react-icons/ai'
 import {BiNotification} from 'react-icons/bi'
 import {FiSettings} from 'react-icons/fi'
-import userPic from '../assets/user-pic.png'
+import userPic from '../assets/user.png'
 import { Link } from 'react-router-dom'
 
+function getGoogleUser(){
+    const googleuser = JSON.parse(window.localStorage.getItem('googleuser'));
+    if(googleuser){
+        return googleuser
+    } else {
+        return null
+    }
+}
+
+function getUser(){
+    const bookDetails = JSON.parse(window.localStorage.getItem('book'));
+    return bookDetails
+}
+
 const Sidebar = ({ sideBar, toggleHeart, setToggleHeart }) => {
+
+    const googleuser = getGoogleUser();
+    const userBookDetails = getUser();
+
+    const navigate =()=>{
+        if(userBookDetails){
+            window.location = '/book'
+        } else {
+            return alert('Fill up the information below to get started')
+        }
+    }
+
   return (
     <nav className={!sideBar ? 'fixed top-0 bottom-0 left-0 bg-white w-2/3 p-4 shadow-lg z-20 slide-out' : 'fixed top-0 bottom-0 bg-white w-2/3 p-4 shadow-lg z-20 slide-in'}>
         <div className='w-full flex flex-col justify-between gap-5 h-full'>
@@ -27,16 +51,16 @@ const Sidebar = ({ sideBar, toggleHeart, setToggleHeart }) => {
                     <li className='flex flex-row gap-2 items-center p-2 hover:bg-gray-200 hover:rounded-lg'>
                         <BiBook fontSize={'18px'} />
                         <Link to={'/'} className='text-base font-bold'>
-                            Booking
+                            Home
                         </Link>
                     </li>
                     <li className='flex flex-row gap-2 items-center p-2 hover:bg-gray-200 hover:rounded-lg'>
                         <BiAlarmExclamation fontSize={'18px'} />
-                        <Link to={'/'} className='text-base font-bold'>
-                            About Us
+                        <Link to={'/book'} onClick={navigate} className='text-base font-bold'>
+                            Booking
                         </Link>
                     </li>
-                    <li className='flex flex-row gap-2 items-center p-2 hover:bg-gray-200 hover:rounded-lg'>
+                    {/* <li className='flex flex-row gap-2 items-center p-2 hover:bg-gray-200 hover:rounded-lg'>
                         <AiTwotoneCustomerService fontSize={'18px'} />
                         <Link to={'/'} className='text-base font-bold'>
                             Support
@@ -47,7 +71,7 @@ const Sidebar = ({ sideBar, toggleHeart, setToggleHeart }) => {
                         <Link to={'/'} className='text-base font-bold'>
                             Terms & Conditions
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 
@@ -55,11 +79,14 @@ const Sidebar = ({ sideBar, toggleHeart, setToggleHeart }) => {
                 {/* PROFILE LINKS */}
                 <div className='flex flex-row items-center justify-center gap-2'>
                     <img 
-                        src={userPic}
+                        src={googleuser === null ? userPic : googleuser.photoURL}
                         alt='user-pic'
+                        width={'30px'}
+                        height={'40px'}
+                        className={'rounded-full'}
                     />
                     <h1 className='font-poppins font-bold text-center tracking-wide text-sm'>
-                        Adrian Davies
+                        {googleuser === null ? 'Adrian Davies' : `${googleuser.displayName}`}
                     </h1>
                 </div>
 

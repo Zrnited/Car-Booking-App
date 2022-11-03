@@ -1,7 +1,7 @@
 import React from 'react'
 import { BiChevronLeft } from 'react-icons/bi'
 import { BiChevronRight } from 'react-icons/bi'
-import { animate, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Spinner from '../Components/Spinner.js';
 import{ BsFillCheckCircleFill} from 'react-icons/bs'
 

@@ -46,12 +46,6 @@ const Book = () => {
     const [modal, setModal] = React.useState(false);
     const bookingComponent = true
 
-
-    // if(loading){
-    //     setInterval(() => {
-    //         setLoading(false);
-    //     }, 1,500);
-    // }
     
     const handleFilter=(event)=>{
     const {name, checked} = event.target

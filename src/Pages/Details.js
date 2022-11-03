@@ -4,6 +4,7 @@ const Details = () => {
 
     const userInfo = JSON.parse(window.localStorage.getItem('book'));
     const carInfo = JSON.parse(window.sessionStorage.getItem('car'));
+    
   return (
     <div className='h-screen w-full bg-gray-50 flex flex-col justify-center items-center'>
         <div className='w-full max-w-800 flex flex-col justify-center items-center'>
@@ -45,6 +46,22 @@ const Details = () => {
                     </div>
                     <div className='w-full bg-white text-center py-2 border-1 border-solid border-gray-300 border-b-0 border-l-0 border-r-0 text-sm sm:text-base'>
                         <h1>{userInfo?.pickUp}</h1>
+                    </div>
+            </div>
+            <div className='flex flex-row w-full'>
+                    <div className='w-full bg-slate-200 text-center py-2 border-1 border-solid border-gray-300 border-b-0 border-l-0 font-poppins font-bold text-sm sm:text-base'>
+                        <h1>Pick up date</h1>
+                    </div>
+                    <div className='w-full bg-white text-center py-2 border-1 border-solid border-gray-300 border-b-0 border-l-0 border-r-0 text-sm sm:text-base'>
+                        <h1>{userInfo?.pickDate}</h1>
+                    </div>
+            </div>
+            <div className='flex flex-row w-full'>
+                    <div className='w-full bg-slate-200 text-center py-2 border-1 border-solid border-gray-300 border-b-0 border-l-0 font-poppins font-bold text-sm sm:text-base'>
+                        <h1>Drop off date</h1>
+                    </div>
+                    <div className='w-full bg-white text-center py-2 border-1 border-solid border-gray-300 border-b-0 border-l-0 border-r-0 text-sm sm:text-base'>
+                        <h1>{userInfo?.dropDate}</h1>
                     </div>
             </div>
             <div className='flex flex-row w-full'>

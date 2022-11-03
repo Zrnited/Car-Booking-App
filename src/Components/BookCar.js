@@ -5,9 +5,6 @@ import { FiClock } from 'react-icons/fi';
 
 const BookCar = ({ bookingForm, handleChange, booked }) => {
 
-    // const [date, setDate] = React.useState(null);
-    // console.log(date);
-
   return (
     <div className='w-full flex flex-col gap-4 md:flex-row md:justify-evenly lg:gap-6'>
         <div className='flex flex-col gap-2 md:w-full'>
@@ -43,7 +40,7 @@ const BookCar = ({ bookingForm, handleChange, booked }) => {
                         <BsCalendarEvent color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Pick-up Date</p>
                     </div>
-                    {!booked ? <div className='bg-gray-200 px-4 py-1 rounded-lg'>
+                    {!booked ? <div className='bg-gray-200 px-2 py-1 rounded-lg sm:px-4'>
                         <form className='bg-gray-200 w-full flex flex-col justify-center py-1 text-sm sm:text-base'>
                             <input 
                                 type={'date'}
@@ -65,7 +62,7 @@ const BookCar = ({ bookingForm, handleChange, booked }) => {
                     <BsCalendarEvent color='#034671' />
                         <p className='font-bold lg:text-sm xl:text-base'>Drop-off Date</p>
                     </div>
-                    {!booked ? <div className='bg-gray-200 px-4 py-1 rounded-lg'>
+                    {!booked ? <div className='bg-gray-200 px-2 py-1 rounded-lg sm:px-4'>
                         <form className='bg-gray-200 w-full flex flex-col justify-center py-1 text-sm sm:text-base'>
                             <input 
                                 type={'date'}

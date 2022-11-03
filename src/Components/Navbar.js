@@ -7,20 +7,32 @@ import {AiFillHeart} from 'react-icons/ai'
 import {AiOutlineHeart} from 'react-icons/ai'
 import {AiOutlineLogout} from 'react-icons/ai'
 import {FiSettings} from 'react-icons/fi'
+import { BsGoogle } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
-import userPic from '../assets/user-pic.png'
+import userPic from '../assets/user.png'
 import Aos from 'aos'
 import 'aos/dist/aos.css';
 import { motion } from 'framer-motion';
 
 function getUser(){
-    const user = JSON.parse(window.localStorage.getItem('book'));
-    return user
+    const bookDetails = JSON.parse(window.localStorage.getItem('book'));
+    return bookDetails
 }
 
-const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, setSidebar, sidebar, homeComponent, bookingComponent }) => {
 
-    const userInfo = getUser();
+const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, setSidebar, sidebar, homeComponent, bookingComponent, logOut, handleGoogleSignIn }) => {
+
+    function getGoogleUser(){
+        const googleuser = JSON.parse(window.localStorage.getItem('googleuser'));
+        if(googleuser){
+            return googleuser
+        } else {
+            return null
+        }
+    }
+
+    const userBookDetails = getUser();
+    const googleuser = getGoogleUser();
 
     const links = document.getElementsByClassName('link');
     // console.log(links);
@@ -51,7 +63,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
     }, [])
 
     const cancelSession =()=>{
-        if(userInfo){
+        if(userBookDetails){
             if(window.confirm('Do you wish to end your session?')){
                 setDropDown(false);
                 window.localStorage.clear();
@@ -66,7 +78,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
     }
 
     const navigate =()=>{
-        if(userInfo){
+        if(userBookDetails){
             window.location = '/book'
         } else {
             return alert('Fill up the information below to get started')
@@ -79,15 +91,26 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
         <div>
             <h1 className='uppercase tracking-widest font-extrabold text-customblue weight-500 text-lg font-poppins lg:text-xl xl:text-2xl'>optimum</h1>    
         </div>
-        <motion.button 
-            className='block text-lg text-black sm:hidden'
-            onClick={()=>setSidebar(!sidebar)}
-            animate={{rotate: sidebar ? 90 : 0}}
-            whileHover={{scale: 1.2}}
 
-        >
-            <GiHamburgerMenu />
-        </motion.button>
+        <div className='flex flex-row-reverse gap-5 sm:hidden'>
+            <motion.button 
+                className='block text-lg text-black'
+                onClick={()=>setSidebar(!sidebar)}
+                animate={{rotate: sidebar ? 90 : 0}}
+                whileHover={{scale: 1.2}}
+
+            >
+                <GiHamburgerMenu />
+            </motion.button>
+            {googleuser === null ? <button onClick={handleGoogleSignIn} className='bg-customred flex flex-row items-center justify-center gap-2 py-1 px-3 text-white rounded-sm border-0 hover:bg-red-600 transition ease-in-out delay-100'>
+                <i><BsGoogle /></i>
+                    Sign in
+                </button> : <button onClick={logOut} className='bg-customred flex flex-row items-center justify-center gap-2 py-1 px-3 text-white rounded-sm border-0 hover:bg-red-600 transition ease-in-out delay-100'>
+                    <i><BsGoogle /></i>
+                    Sign out
+                </button>}
+        </div>
+        
         <div className='hidden sm:flex flex-row gap-5'>
             <div>
                 <Link 
@@ -161,8 +184,11 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                 </button>
             </div>
             <img 
-                src={userPic}
+                src={googleuser !== null ? googleuser?.photoURL : userPic}
                 alt='user-pic'
+                width={'30px'}
+                height={'30px'}
+                className='rounded-full'
             />
             <motion.button 
                 className='text-lg'
@@ -175,9 +201,9 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
             </motion.button>
 
             {/* EXTRA OPTIONS */}
-            {dropDown && <div className='flex flex-col gap-2 absolute bg-white shadow-lg top-12 right-2 z-20 p-4 w-44 rounded-lg'>
+            {dropDown && <div className='flex flex-col gap-2 absolute bg-white shadow-lg top-12 right-2 z-20 p-4 w-48 rounded-lg'>
                 <h1 className='font-poppins font-bold text-center tracking-wide'>
-                    Adrian Davies
+                    {googleuser !== null ? `${googleuser?.displayName}` : 'Adrian Davies'}
                 </h1>
 
                 {width < 768 && <div className='flex flex-col gap-2'>
@@ -206,6 +232,14 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                     <AiOutlineLogout />
                     <p onClick={cancelSession}>Cancel Session</p>
                 </div>
+
+                {googleuser === null? <button onClick={handleGoogleSignIn} className='bg-customred flex flex-row items-center justify-center gap-2 py-1 text-white rounded-sm border-0 hover:bg-red-600 transition ease-in-out delay-100'>
+                    <i><BsGoogle /></i>
+                    Sign in
+                </button> : <button onClick={logOut} className='bg-customred flex flex-row items-center justify-center gap-2 py-1 text-white rounded-sm border-0 hover:bg-red-600 transition ease-in-out delay-100'>
+                    <i><BsGoogle /></i>
+                    Sign out
+                </button>}
             </div>}
         </div>
         <div className='hidden sm:block sm:absolute bottom-0 bg-gray-200 h-2 w-95 sm:flex-row sm:items-center justify-center gap-9'></div>

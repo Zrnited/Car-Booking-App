@@ -9,11 +9,36 @@ import {AiFillTwitterSquare} from 'react-icons/ai'
 import {AiFillGithub} from 'react-icons/ai'
 import {AiFillLinkedin} from 'react-icons/ai'
 import Header from '../Components/Header';
-import { useNavigate } from 'react-router-dom';
+
+import { GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
 
 const Booking = () => {
 
-  const navigate = useNavigate();
+  // FIREBASE AUTICATION STARTS
+  const [googleuser, setGoogleUser] = React.useState(null)
+
+  const googleSignIn =()=>{
+    const provider = new GoogleAuthProvider();
+    // signInWithPopup( auth, provider)
+    signInWithRedirect( auth, provider)
+  }
+
+  const handleGoogleSignIn = async ()=>{
+    // alert('clicked');
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const logOut =()=>{
+    signOut(auth);
+    localStorage.clear('googleuser');
+  }
+
+  //FIREBASE AUTHENTICATION ENDS
 
   const [bookingForm, setBookingForm] = useState({
     pickUp: '',
@@ -79,7 +104,7 @@ const Booking = () => {
             toast.success('Information received!');
             window.localStorage.setItem('book', JSON.stringify(bookingForm))
             setInterval(()=>{
-              navigate('/book');
+              window.location = '/book'
             }, 1500)
           } else {
             return toast.error('Invalid type of location');
@@ -93,7 +118,7 @@ const Booking = () => {
           // setLoading(true);
           window.localStorage.setItem('book', JSON.stringify(bookingForm))
           setInterval(()=>{
-            navigate('/book');
+            window.location = '/book'
           }, 1500)
         } else {
           return toast.error('Input valid lcoations');
@@ -113,11 +138,25 @@ const Booking = () => {
     setWidth(window.innerWidth);
   }, [])
 
+  //FIREBASE USEEFFECT
+  React.useEffect(()=>{
+    const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
+      setGoogleUser(currentUser);
+      console.log(currentUser);
+    });
+    return ()=>{
+      unsubscribe();
+    };
+  }, []) 
+
+  React.useEffect(()=>{
+    window.localStorage.setItem('googleuser', JSON.stringify(googleuser));
+  }, [googleuser])  
 
   return (
     <div>
       <ToastContainer />
-      <Navbar homeComponent={homeComponent} setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
+      <Navbar logOut={logOut} handleGoogleSignIn={handleGoogleSignIn} homeComponent={homeComponent} setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
 
       {<Sidebar sideBar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart}/>}
 
