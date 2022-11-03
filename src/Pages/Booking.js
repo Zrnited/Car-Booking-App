@@ -29,6 +29,7 @@ const Booking = () => {
   const [dropDown, setDropDown] = React.useState(false);
   const [width, setWidth] = React.useState(null)
   const [sidebar, setSidebar] = React.useState(false);
+  const homeComponent = true;
 
 
   window.addEventListener('resize', ()=>{
@@ -116,7 +117,7 @@ const Booking = () => {
   return (
     <div>
       <ToastContainer />
-      <Navbar setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
+      <Navbar homeComponent={homeComponent} setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
 
       {<Sidebar sideBar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart}/>}
 

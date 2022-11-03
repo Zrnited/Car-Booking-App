@@ -47,7 +47,8 @@ module.exports = {
         840: '840px',
         500: '500px',
         712: '712px',
-        400: '400px'
+        400: '400px',
+        800: '800px'
       },
       
       backgroundColor: {
@@ -57,7 +58,8 @@ module.exports = {
       },
 
       borderWidth: {
-        3: '3px'
+        3: '3px',
+        1: '1px'
       },
 
       borderColor: {

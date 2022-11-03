@@ -44,6 +44,7 @@ const Book = () => {
     const [current, setCurrent] = React.useState([]);
     // console.log(current);
     const [modal, setModal] = React.useState(false);
+    const bookingComponent = true
 
 
     // if(loading){
@@ -92,6 +93,7 @@ const Book = () => {
       //getting a specific car etails
       const handleTarget =(carItem)=>{
        setCurrent(carItem);
+       window.sessionStorage.setItem('car', JSON.stringify(carItem));
        setModal(true);
       }
 
@@ -130,7 +132,7 @@ const Book = () => {
 
   return (
     <div className='flex flex-col justify-center w-full'>
-        <Navbar setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
+        <Navbar bookingComponent={bookingComponent} setSidebar={setSidebar} sidebar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart} dropDown={dropDown} setDropDown={setDropDown} width={width} />
 
         {<Sidebar sideBar={sidebar} toggleHeart={toggleHeart} setToggleHeart={setToggleHeart}/>}
 

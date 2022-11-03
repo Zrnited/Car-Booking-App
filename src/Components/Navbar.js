@@ -18,7 +18,7 @@ function getUser(){
     return user
 }
 
-const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, setSidebar, sidebar }) => {
+const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, setSidebar, sidebar, homeComponent, bookingComponent }) => {
 
     const userInfo = getUser();
 
@@ -55,12 +55,21 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
             if(window.confirm('Do you wish to end your session?')){
                 setDropDown(false);
                 window.localStorage.clear();
+                window.sessionStorage.clear();
                 window.location = '/';
             } else {
                 return
             }
         } else {
             alert('Session not yet registered')
+        }
+    }
+
+    const navigate =()=>{
+        if(userInfo){
+            window.location = '/book'
+        } else {
+            return alert('Fill up the information below to get started')
         }
     }
 
@@ -84,29 +93,30 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                 <Link 
                     className='link hover:text-customblue transition ease-in-out delay-100' 
                     to='/' 
-                    data-test-id='Booking' 
+                    data-test-id='Home' 
                     onMouseOver={underScore}
                     onMouseLeave={removeScore}
                 >
-                    Booking
+                    Home
                 </Link>
-                <hr className={hoverLine === 'Booking' ? 'absolute bottom-0 bg-customblue border-none h-2 w-16 z-10 transition ease-in-out delay-100' : 'absolute bottom-0 bg-gray-200 border-none h-2 w-16 z-10 transition ease-in-out delay-100'}/>
+                <hr className={hoverLine === 'Home' || homeComponent ? 'absolute bottom-0 bg-customblue border-none h-2 w-12 z-10 transition ease-in-out delay-100' : 'absolute bottom-0 bg-gray-200 border-none h-2 w-12 z-10 transition ease-in-out delay-100'}/>
             </div>
 
             <div>
                 <Link 
                     className='link hover:text-customblue transition ease-in-out delay-100' 
                     to='/' 
-                    data-test-id='About Us'
+                    data-test-id='Booking'
                     onMouseOver={underScore}
                     onMouseLeave={removeScore}
+                    onClick={navigate}
                 >
-                    About Us
+                    Booking
                 </Link>
-                <hr className={hoverLine === 'About Us' ? 'absolute bottom-0 bg-customblue border-none h-2 w-16 z-10 transition ease-in-out delay-100' : 'absolute bottom-0 bg-gray-200 border-none h-2 w-16 z-10 transition ease-in-out delay-100'}/>
+                <hr className={hoverLine === 'Booking' || bookingComponent ? 'absolute bottom-0 bg-customblue border-none h-2 w-16 z-10 transition ease-in-out delay-100' : 'absolute bottom-0 bg-gray-200 border-none h-2 w-16 z-10 transition ease-in-out delay-100'}/>
             </div>
 
-            <div>
+            {/* <div>
                 <Link 
                     className='link hover:text-customblue transition ease-in-out delay-100' 
                     to='/' 
@@ -131,7 +141,7 @@ const Navbar = ({ toggleHeart, setToggleHeart, dropDown, setDropDown, width, set
                     Terms & Condition
                 </Link>
                 <hr className={hoverLine === 'Terms &amp; Condition' ? 'absolute bottom-0 bg-customblue border-none h-2 w-36 z-10 transition ease-in-out delay-100' : 'absolute bottom-0 bg-gray-200 border-none h-2 w-36 z-10 transition ease-in-out delay-100'}/>
-            </div>
+            </div> */}
         </div>
 
         <div className='hidden sm:relative sm:flex sm:flex-row sm:gap-1 sm:text-gray-500'>
